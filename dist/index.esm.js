@@ -163,6 +163,7 @@ var ColorPicker = function ColorPicker(_ref) {
   var hueBackground = hsv2hex(h, 100, 100);
   return jsx("div", {
     css: styles.picker,
+    className: "PopOver",
     onClick: handleClick
   }, jsx("div", {
     css: styles.selector,
