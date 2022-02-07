@@ -119,17 +119,15 @@ var ColorPicker = function ColorPicker(_ref) {
         s = _rgb2hsv2.s,
         v = _rgb2hsv2.v;
 
-    if (hex.length == 6) {
-      changeColor(_extends({}, color, {
-        r: r,
-        g: g,
-        b: b,
-        h: h,
-        s: s,
-        v: v,
-        hex: hex
-      }));
-    }
+    changeColor(_extends({}, color, {
+      r: r,
+      g: g,
+      b: b,
+      h: h,
+      s: s,
+      v: v,
+      hex: hex
+    }));
   }
 
   function handleHexKeyUp(e) {
