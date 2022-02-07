@@ -16,9 +16,6 @@ var colorFns = require('@swiftcarrot/color-fns');
 function hex2alpha(aa) {
   return Math.round(parseInt('0x' + aa, 16) / 255 * 100);
 }
-function alpha2hex(a) {
-  return (Math.round(a / 100 * 255) + 0x10000).toString(16).substr(-2);
-}
 function parseColor(hexColor) {
   hexColor = hexColor.toLowerCase();
   var hex = hexColor;
@@ -39,7 +36,7 @@ function parseColor(hexColor) {
 }
 function rgba2hex(r, g, b, a) {
   var hex = colorFns.rgb2hex(r, g, b);
-  return hex + alpha2hex(a);
+  return hex; // + alpha2hex(a);
 }
 
 var KEY_ENTER = 13;
@@ -68,7 +65,8 @@ var ColorPicker = function ColorPicker(_ref) {
     if (onChange) {
       onChange(_extends({}, color, {
         rgba: colorFns.rgba(color.r, color.g, color.b, color.a),
-        hex: rgba2hex(color.r, color.g, color.b, color.a)
+        //hex: rgba2hex(color.r, color.g, color.b, color.a),
+        hex: rgba2hex(color.r, color.g, color.b)
       }));
     }
   }
@@ -127,15 +125,17 @@ var ColorPicker = function ColorPicker(_ref) {
         s = _rgb2hsv2.s,
         v = _rgb2hsv2.v;
 
-    changeColor(_extends({}, color, {
-      r: r,
-      g: g,
-      b: b,
-      h: h,
-      s: s,
-      v: v,
-      hex: hex
-    }));
+    if (hex.length == 6) {
+      changeColor(_extends({}, color, {
+        r: r,
+        g: g,
+        b: b,
+        h: h,
+        s: s,
+        v: v,
+        hex: hex
+      }));
+    }
   }
 
   function handleHexKeyUp(e) {
@@ -281,8 +281,8 @@ var ColorPicker = function ColorPicker(_ref) {
     onChange: function onChange(e) {
       return changeHex(e.target.value);
     },
-    onKeyUp: handleHexKeyUp,
-    disabled: disabled
+    onKeyUp: handleHexKeyUp //disabled={disabled}
+
   }), core.jsx("div", null, "Hex")), core.jsx("div", {
     css: styles.input
   }, core.jsx(InputNumber, {
