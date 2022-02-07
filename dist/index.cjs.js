@@ -115,25 +115,27 @@ var ColorPicker = function ColorPicker(_ref) {
   }
 
   function changeHex(hex) {
-    var _hex2rgb = colorFns.hex2rgb(hex),
-        r = _hex2rgb.r,
-        g = _hex2rgb.g,
-        b = _hex2rgb.b;
+    if (hex.length == 7) {
+      var _hex2rgb = colorFns.hex2rgb(hex),
+          _r = _hex2rgb.r,
+          _g = _hex2rgb.g,
+          _b = _hex2rgb.b;
 
-    var _rgb2hsv2 = colorFns.rgb2hsv(r, g, b),
-        h = _rgb2hsv2.h,
-        s = _rgb2hsv2.s,
-        v = _rgb2hsv2.v;
+      var _rgb2hsv2 = colorFns.rgb2hsv(_r, _g, _b),
+          _h = _rgb2hsv2.h,
+          _s = _rgb2hsv2.s,
+          _v = _rgb2hsv2.v;
 
-    changeColor(_extends({}, color, {
-      r: r,
-      g: g,
-      b: b,
-      h: h,
-      s: s,
-      v: v,
-      hex: hex
-    }));
+      changeColor(_extends({}, color, {
+        r: _r,
+        g: _g,
+        b: _b,
+        h: _h,
+        s: _s,
+        v: _v,
+        hex: hex
+      }));
+    }
   }
 
   function handleHexKeyUp(e) {
@@ -141,14 +143,14 @@ var ColorPicker = function ColorPicker(_ref) {
       var hex = e.target.value.trim();
 
       var _hex2rgb2 = colorFns.hex2rgb(hex),
-          _r = _hex2rgb2.r,
-          _g = _hex2rgb2.g,
-          _b = _hex2rgb2.b;
+          _r2 = _hex2rgb2.r,
+          _g2 = _hex2rgb2.g,
+          _b2 = _hex2rgb2.b;
 
       changeColor(_extends({}, color, {
-        r: _r,
-        g: _g,
-        b: _b,
+        r: _r2,
+        g: _g2,
+        b: _b2,
         a: a,
         hex: hex
       }));
