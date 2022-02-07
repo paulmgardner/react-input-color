@@ -45,9 +45,9 @@ const ColorPicker = ({ color, onChange, disabled }) => {
   }
 
   function changeHex(hex) {
-    const { r, g, b } = hex2rgb(hex);
-    const { h, s, v } = rgb2hsv(r, g, b);
-    if (hex.length==6) {
+    if (hex.length==7) {
+      const { r, g, b } = hex2rgb(hex);
+      const { h, s, v } = rgb2hsv(r, g, b);
       changeColor({ ...color, r, g, b, h, s, v, hex });
     }
   }
