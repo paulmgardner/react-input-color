@@ -28,7 +28,7 @@ const InputColor = ({ initialValue, onChange, placement, disabled, ...props }) =
         {...props}
         css={css`
           position: relative;
-          display: inline-block;
+          display: none;
           box-sizing: border-box;
           width: 49px;
           height: 24px;

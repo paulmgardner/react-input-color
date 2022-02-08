@@ -22,7 +22,8 @@ const ColorPicker = ({ color, onChange, disabled }) => {
       onChange({
         ...color,
         rgba: rgba(color.r, color.g, color.b, color.a),
-        hex: rgba2hex(color.r, color.g, color.b, color.a),
+        //hex: rgba2hex(color.r, color.g, color.b, color.a),
+        hex: rgba2hex(color.r, color.g, color.b),
       });
     }
   }
@@ -44,9 +45,11 @@ const ColorPicker = ({ color, onChange, disabled }) => {
   }
 
   function changeHex(hex) {
-    const { r, g, b } = hex2rgb(hex);
-    const { h, s, v } = rgb2hsv(r, g, b);
-    changeColor({ ...color, r, g, b, h, s, v, hex });
+    if (hex.length==7) {
+      const { r, g, b } = hex2rgb(hex);
+      const { h, s, v } = rgb2hsv(r, g, b);
+      changeColor({ ...color, r, g, b, h, s, v, hex });
+    }
   }
 
   function handleHexKeyUp(e) {
@@ -70,10 +73,11 @@ const ColorPicker = ({ color, onChange, disabled }) => {
 
   return (
     <div css={styles.picker} onClick={handleClick}>
-      <div css={styles.selector} style={{ backgroundColor: hueBackground }}>
+      <div css={styles.selector} className="ColorSquare" style={{ backgroundColor: hueBackground }}>
         <div css={styles.gradientWhite} />
         <div css={styles.gradientDark} />
         <InputSlider
+          className="SquareSlider"
           axis="xy"
           x={s}
           xmax={100}
@@ -95,6 +99,7 @@ const ColorPicker = ({ color, onChange, disabled }) => {
       </div>
 
       <div
+        className="ColorSliderCont"
         css={{
           width: '100%',
           marginTop: 10,
@@ -102,11 +107,12 @@ const ColorPicker = ({ color, onChange, disabled }) => {
           display: 'flex',
         }}
       >
-        <div css={{ flex: 1, marginRight: 10 }}>
+        <div className="ColorSlider" css={{ flex: 1, marginRight: 10 }}>
           <InputSlider
             axis="x"
             x={h}
             xmax={359}
+            className="ColorSliderSelect"
             onChange={({ x }) => changeHSV(x, s, v)}
             disabled={disabled}
             styles={{
@@ -132,6 +138,7 @@ const ColorPicker = ({ color, onChange, disabled }) => {
             axis="x"
             x={a}
             xmax={100}
+            className="ColorSliderSelectOpacity"
             styles={{
               track: {
                 width: '100%',
@@ -153,25 +160,23 @@ const ColorPicker = ({ color, onChange, disabled }) => {
             disabled={disabled}
           />
         </div>
-        <div
-          style={{ backgroundColor: rgbaBackground, width: 30, height: 30 }}
-        />
+        <div className="ColorChosen" style={{ backgroundColor: rgbaBackground, width: 30, height: 30 }} />
       </div>
 
-      <div css={styles.inputs}>
-        <div css={styles.input}>
+      <div className="hexRGBCont" css={styles.inputs}>
+        <div className="hexRGB" css={styles.input}>
           <input
             style={{ width: 70, textAlign: 'left' }}
             type="text"
             value={color.hex}
             onChange={(e) => changeHex(e.target.value)}
             onKeyUp={handleHexKeyUp}
-            disabled={disabled}
+            //disabled={disabled}
           />
           <div>Hex</div>
         </div>
 
-        <div css={styles.input}>
+        <div className="hexRGB" css={styles.input}>
           <InputNumber
             min={0}
             max={255}
@@ -181,7 +186,7 @@ const ColorPicker = ({ color, onChange, disabled }) => {
           />
           <div>R</div>
         </div>
-        <div css={styles.input}>
+        <div className="hexRGB" css={styles.input}>
           <InputNumber
             min={0}
             max={255}
@@ -191,7 +196,7 @@ const ColorPicker = ({ color, onChange, disabled }) => {
           />
           <div>G</div>
         </div>
-        <div css={styles.input}>
+        <div className="hexRGB" css={styles.input}>
           <InputNumber
             min={0}
             max={255}
@@ -202,7 +207,7 @@ const ColorPicker = ({ color, onChange, disabled }) => {
           <div>B</div>
         </div>
 
-        <div css={styles.input}>
+        <div className="hexRGB" css={styles.input}>
           <InputNumber
             min={0}
             max={100}

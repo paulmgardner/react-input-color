@@ -21,7 +21,7 @@ export function parseColor(hexColor) {
 
 export function rgba2hex(r, g, b, a) {
   const hex = rgb2hex(r, g, b);
-  return hex + alpha2hex(a);
+  return hex;// + alpha2hex(a);
 }
 
 export {
