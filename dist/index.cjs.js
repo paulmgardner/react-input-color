@@ -169,10 +169,10 @@ var ColorPicker = function ColorPicker(_ref) {
   var hueBackground = colorFns.hsv2hex(h, 100, 100);
   return core.jsx("div", {
     css: styles.picker,
-    className: "ColorSquare",
     onClick: handleClick
   }, core.jsx("div", {
     css: styles.selector,
+    className: "ColorSquare",
     style: {
       backgroundColor: hueBackground
     }

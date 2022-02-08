@@ -163,10 +163,10 @@ var ColorPicker = function ColorPicker(_ref) {
   var hueBackground = hsv2hex(h, 100, 100);
   return jsx("div", {
     css: styles.picker,
-    className: "ColorSquare",
     onClick: handleClick
   }, jsx("div", {
     css: styles.selector,
+    className: "ColorSquare",
     style: {
       backgroundColor: hueBackground
     }
