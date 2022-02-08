@@ -393,8 +393,8 @@ var styles = {
 };
 
 var _ref = {
-  name: "j4ndc3",
-  styles: "position:relative;display:inline-block;box-sizing:border-box;width:49px;height:24px;padding:4px;background-color:#ffffff;border:1px solid #bebebe;border-radius:3px;user-select:none;"
+  name: "7n089j",
+  styles: "position:relative;display:none;box-sizing:border-box;width:49px;height:24px;padding:4px;background-color:#ffffff;border:1px solid #bebebe;border-radius:3px;user-select:none;"
 };
 var _ref2 = {
   name: "trkpwz",
