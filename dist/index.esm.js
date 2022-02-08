@@ -163,7 +163,7 @@ var ColorPicker = function ColorPicker(_ref) {
   var hueBackground = hsv2hex(h, 100, 100);
   return jsx("div", {
     css: styles.picker,
-    className: "PopOver",
+    className: "ColorSquare",
     onClick: handleClick
   }, jsx("div", {
     css: styles.selector,
@@ -175,6 +175,7 @@ var ColorPicker = function ColorPicker(_ref) {
   }), jsx("div", {
     css: styles.gradientDark
   }), jsx(InputSlider, {
+    className: "SquareSlider",
     axis: "xy",
     x: s,
     xmax: 100,
@@ -201,13 +202,16 @@ var ColorPicker = function ColorPicker(_ref) {
       }
     }
   })), jsx("div", {
+    className: "ColorSliderCont",
     css: _ref3
   }, jsx("div", {
+    className: "ColorSlider",
     css: _ref4
   }, jsx(InputSlider, {
     axis: "x",
     x: h,
     xmax: 359,
+    className: "ColorSliderSelect",
     onChange: function onChange(_ref5) {
       var x = _ref5.x;
       return changeHSV(x, s, v);
@@ -234,6 +238,7 @@ var ColorPicker = function ColorPicker(_ref) {
     axis: "x",
     x: a,
     xmax: 100,
+    className: "ColorSliderSelectOpacity",
     styles: {
       track: {
         width: '100%',
@@ -257,14 +262,17 @@ var ColorPicker = function ColorPicker(_ref) {
     },
     disabled: disabled
   })), jsx("div", {
+    className: "ColorChosen",
     style: {
       backgroundColor: rgbaBackground,
       width: 30,
       height: 30
     }
   })), jsx("div", {
+    className: "hexRGBCont",
     css: styles.inputs
   }, jsx("div", {
+    className: "hexRGB",
     css: styles.input
   }, jsx("input", {
     style: {
@@ -279,6 +287,7 @@ var ColorPicker = function ColorPicker(_ref) {
     onKeyUp: handleHexKeyUp //disabled={disabled}
 
   }), jsx("div", null, "Hex")), jsx("div", {
+    className: "hexRGB",
     css: styles.input
   }, jsx(InputNumber, {
     min: 0,
@@ -289,6 +298,7 @@ var ColorPicker = function ColorPicker(_ref) {
     },
     disabled: disabled
   }), jsx("div", null, "R")), jsx("div", {
+    className: "hexRGB",
     css: styles.input
   }, jsx(InputNumber, {
     min: 0,
@@ -299,6 +309,7 @@ var ColorPicker = function ColorPicker(_ref) {
     },
     disabled: disabled
   }), jsx("div", null, "G")), jsx("div", {
+    className: "hexRGB",
     css: styles.input
   }, jsx(InputNumber, {
     min: 0,
@@ -309,6 +320,7 @@ var ColorPicker = function ColorPicker(_ref) {
     },
     disabled: disabled
   }), jsx("div", null, "B")), jsx("div", {
+    className: "hexRGB",
     css: styles.input
   }, jsx(InputNumber, {
     min: 0,
