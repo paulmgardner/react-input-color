@@ -13,6 +13,7 @@ export class Color {
 }
 
 export interface InputColorProps {
+  hexId: string;
   initialValue: string;
   placement?: string;
   onChange?(color: Color): void;
