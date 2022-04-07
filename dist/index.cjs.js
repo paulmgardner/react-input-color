@@ -50,7 +50,8 @@ var _ref4 = {
 };
 
 var ColorPicker = function ColorPicker(_ref) {
-  var color = _ref.color,
+  var hexId = _ref.hexId,
+      color = _ref.color,
       onChange = _ref.onChange,
       disabled = _ref.disabled;
   var r = color.r,
@@ -60,6 +61,11 @@ var ColorPicker = function ColorPicker(_ref) {
       h = color.h,
       s = color.s,
       v = color.v;
+  var hexComp = document.getElementById(hexId);
+
+  if (hexComp) {
+    hexComp.value = rgba2hex(color.r, color.g, color.b);
+  }
 
   function changeColor(color) {
     if (onChange) {
@@ -281,6 +287,7 @@ var ColorPicker = function ColorPicker(_ref) {
     className: "hexRGB",
     css: styles.input
   }, core.jsx("input", {
+    id: hexId,
     style: {
       width: 70,
       textAlign: 'left'
@@ -402,11 +409,12 @@ var _ref2 = {
 };
 
 var InputColor = function InputColor(_ref3) {
-  var initialValue = _ref3.initialValue,
+  var hexId = _ref3.hexId,
+      initialValue = _ref3.initialValue,
       onChange = _ref3.onChange,
       placement = _ref3.placement,
       disabled = _ref3.disabled,
-      props = _objectWithoutPropertiesLoose(_ref3, ["initialValue", "onChange", "placement", "disabled"]);
+      props = _objectWithoutPropertiesLoose(_ref3, ["hexId", "initialValue", "onChange", "placement", "disabled"]);
 
   var _useState = react.useState(parseColor(initialValue)),
       color = _useState[0],
@@ -426,6 +434,7 @@ var InputColor = function InputColor(_ref3) {
   return core.jsx(Popover, {
     placement: placement,
     body: core.jsx(ColorPicker, {
+      hexId: hexId,
       color: color,
       onChange: changeColor,
       disabled: disabled
