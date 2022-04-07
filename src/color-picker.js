@@ -168,7 +168,7 @@ const ColorPicker = ({ color, onChange, disabled }) => {
           <input
             style={{ width: 70, textAlign: 'left' }}
             type="text"
-            value={color.hex}
+            defaultValue={color.hex}
             onChange={(e) => changeHex(e.target.value)}
             onKeyUp={handleHexKeyUp}
             //disabled={disabled}
