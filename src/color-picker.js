@@ -14,8 +14,13 @@ import { rgba2hex } from './utils';
 
 const KEY_ENTER = 13;
 
-const ColorPicker = ({ color, onChange, disabled }) => {
+const ColorPicker = ({ hexId, color, onChange, disabled }) => {
   const { r, g, b, a, h, s, v } = color;
+
+  let hexComp=document.getElementById(hexId);
+  if (hexComp) {
+    hexComp.value=rgba2hex(color.r, color.g, color.b);
+  }
 
   function changeColor(color) {
     if (onChange) {
@@ -73,6 +78,127 @@ const ColorPicker = ({ color, onChange, disabled }) => {
 
   return (
     <div css={styles.picker} onClick={handleClick}>
+      <div className="hexRGBCont" css={styles.inputs}>
+        <div className="hexRGBInputCont" css={styles.inputs}>
+          <div className="hexRGB" css={styles.input}>
+            <input
+              id={hexId}
+              style={{ width: 70, textAlign: 'left' }}
+              type="text"
+              defaultValue={color.hex}
+              onChange={(e) => changeHex(e.target.value)}
+              onKeyUp={handleHexKeyUp}
+              //disabled={disabled}
+            />
+            <div>Hex</div>
+          </div>
+
+          <div className="hexRGB" css={styles.input}>
+            <InputNumber
+              min={0}
+              max={255}
+              value={r}
+              onChange={(r) => changeRGB(r, g, b)}
+              disabled={disabled}
+            />
+            <div>R</div>
+          </div>
+          <div className="hexRGB" css={styles.input}>
+            <InputNumber
+              min={0}
+              max={255}
+              value={g}
+              onChange={(g) => changeRGB(r, g, b)}
+              disabled={disabled}
+            />
+            <div>G</div>
+          </div>
+          <div className="hexRGB" css={styles.input}>
+            <InputNumber
+              min={0}
+              max={255}
+              value={b}
+              onChange={(b) => changeRGB(r, g, b)}
+              disabled={disabled}
+            />
+            <div>B</div>
+          </div>
+
+          <div className="hexRGB alpha" css={styles.input}>
+            <InputNumber
+              min={0}
+              max={100}
+              value={a}
+              onChange={(a) => changeAlpha(a)}
+              disabled={disabled}
+            />
+          </div>
+        </div>
+        <div
+          className="ColorSliderCont"
+          css={{
+            width: '100%',
+            marginTop: 10,
+            marginBottom: 10,
+            display: 'flex',
+          }}
+        >
+          <div className="ColorSlider" css={{ flex: 1, marginRight: 10 }}>
+            <InputSlider
+              axis="x"
+              x={h}
+              xmax={359}
+              className="ColorSliderSelect"
+              onChange={({ x }) => changeHSV(x, s, v)}
+              disabled={disabled}
+              styles={{
+                track: {
+                  width: '100%',
+                  height: 12,
+                  borderRadius: 0,
+                  background:
+                    'linear-gradient(to left, #FF0000 0%, #FF0099 10%, #CD00FF 20%, #3200FF 30%, #0066FF 40%, #00FFFD 50%, #00FF66 60%, #35FF00 70%, #CDFF00 80%, #FF9900 90%, #FF0000 100%)',
+                },
+                active: {
+                  background: 'none',
+                },
+                thumb: {
+                  width: 5,
+                  height: 14,
+                  borderRadius: 0,
+                  backgroundColor: '#eee',
+                },
+              }}
+            />
+            <InputSlider
+              axis="x"
+              x={a}
+              xmax={100}
+              className="ColorSliderSelectOpacity"
+              styles={{
+                track: {
+                  width: '100%',
+                  height: 12,
+                  borderRadius: 0,
+                  background: opacityGradient,
+                },
+                active: {
+                  background: 'none',
+                },
+                thumb: {
+                  width: 5,
+                  height: 14,
+                  borderRadius: 0,
+                  backgroundColor: '#eee',
+                },
+              }}
+              onChange={({ x }) => changeAlpha(x)}
+              disabled={disabled}
+            />
+          </div>
+          <div className="ColorChosen" style={{ backgroundColor: rgbaBackground, width: 30, height: 30 }} />
+        </div>
+      </div>
       <div css={styles.selector} className="ColorSquare" style={{ backgroundColor: hueBackground }}>
         <div css={styles.gradientWhite} />
         <div css={styles.gradientDark} />
@@ -96,127 +222,6 @@ const ColorPicker = ({ color, onChange, disabled }) => {
             },
           }}
         />
-      </div>
-
-      <div
-        className="ColorSliderCont"
-        css={{
-          width: '100%',
-          marginTop: 10,
-          marginBottom: 10,
-          display: 'flex',
-        }}
-      >
-        <div className="ColorSlider" css={{ flex: 1, marginRight: 10 }}>
-          <InputSlider
-            axis="x"
-            x={h}
-            xmax={359}
-            className="ColorSliderSelect"
-            onChange={({ x }) => changeHSV(x, s, v)}
-            disabled={disabled}
-            styles={{
-              track: {
-                width: '100%',
-                height: 12,
-                borderRadius: 0,
-                background:
-                  'linear-gradient(to left, #FF0000 0%, #FF0099 10%, #CD00FF 20%, #3200FF 30%, #0066FF 40%, #00FFFD 50%, #00FF66 60%, #35FF00 70%, #CDFF00 80%, #FF9900 90%, #FF0000 100%)',
-              },
-              active: {
-                background: 'none',
-              },
-              thumb: {
-                width: 5,
-                height: 14,
-                borderRadius: 0,
-                backgroundColor: '#eee',
-              },
-            }}
-          />
-          <InputSlider
-            axis="x"
-            x={a}
-            xmax={100}
-            className="ColorSliderSelectOpacity"
-            styles={{
-              track: {
-                width: '100%',
-                height: 12,
-                borderRadius: 0,
-                background: opacityGradient,
-              },
-              active: {
-                background: 'none',
-              },
-              thumb: {
-                width: 5,
-                height: 14,
-                borderRadius: 0,
-                backgroundColor: '#eee',
-              },
-            }}
-            onChange={({ x }) => changeAlpha(x)}
-            disabled={disabled}
-          />
-        </div>
-        <div className="ColorChosen" style={{ backgroundColor: rgbaBackground, width: 30, height: 30 }} />
-      </div>
-
-      <div className="hexRGBCont" css={styles.inputs}>
-        <div className="hexRGB" css={styles.input}>
-          <input
-            style={{ width: 70, textAlign: 'left' }}
-            type="text"
-            defaultValue={color.hex}
-            onChange={(e) => changeHex(e.target.value)}
-            onKeyUp={handleHexKeyUp}
-            //disabled={disabled}
-          />
-          <div>Hex</div>
-        </div>
-
-        <div className="hexRGB" css={styles.input}>
-          <InputNumber
-            min={0}
-            max={255}
-            value={r}
-            onChange={(r) => changeRGB(r, g, b)}
-            disabled={disabled}
-          />
-          <div>R</div>
-        </div>
-        <div className="hexRGB" css={styles.input}>
-          <InputNumber
-            min={0}
-            max={255}
-            value={g}
-            onChange={(g) => changeRGB(r, g, b)}
-            disabled={disabled}
-          />
-          <div>G</div>
-        </div>
-        <div className="hexRGB" css={styles.input}>
-          <InputNumber
-            min={0}
-            max={255}
-            value={b}
-            onChange={(b) => changeRGB(r, g, b)}
-            disabled={disabled}
-          />
-          <div>B</div>
-        </div>
-
-        <div className="hexRGB" css={styles.input}>
-          <InputNumber
-            min={0}
-            max={100}
-            value={a}
-            onChange={(a) => changeAlpha(a)}
-            disabled={disabled}
-          />
-          <div>A</div>
-        </div>
       </div>
     </div>
   );
@@ -277,10 +282,6 @@ const styles = {
     input: {
       width: 30,
       textAlign: 'center',
-    },
-
-    div: {
-      marginTop: 4,
     },
   },
 };
