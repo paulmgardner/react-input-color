@@ -40,11 +40,11 @@ function rgba2hex(r, g, b, a) {
 }
 
 var KEY_ENTER = 13;
-var _ref3 = {
+var _ref2 = {
   name: "bzk4lp",
   styles: "width:100%;margin-top:10px;margin-bottom:10px;display:flex;"
 };
-var _ref4 = {
+var _ref3 = {
   name: "lwa3hx",
   styles: "flex:1;margin-right:10px;"
 };
@@ -177,55 +177,84 @@ var ColorPicker = function ColorPicker(_ref) {
     css: styles.picker,
     onClick: handleClick
   }, core.jsx("div", {
-    css: styles.selector,
-    className: "ColorSquare",
-    style: {
-      backgroundColor: hueBackground
-    }
+    className: "hexRGBCont",
+    css: styles.inputs
   }, core.jsx("div", {
-    css: styles.gradientWhite
-  }), core.jsx("div", {
-    css: styles.gradientDark
-  }), core.jsx(InputSlider, {
-    className: "SquareSlider",
-    axis: "xy",
-    x: s,
-    xmax: 100,
-    y: 100 - v,
-    ymax: 100,
-    onChange: function onChange(_ref2) {
-      var x = _ref2.x,
-          y = _ref2.y;
-      return changeHSV(h, x, 100 - y);
+    className: "hexRGBInputCont",
+    css: styles.inputs
+  }, core.jsx("div", {
+    className: "hexRGB",
+    css: styles.input
+  }, core.jsx("input", {
+    id: hexId,
+    style: {
+      width: 70,
+      textAlign: 'left'
     },
-    disabled: disabled,
-    styles: {
-      track: {
-        width: '100%',
-        height: '100%',
-        background: 'none'
-      },
-      thumb: {
-        width: 12,
-        height: 12,
-        backgroundColor: 'rgba(0,0,0,0)',
-        border: '2px solid #fff',
-        borderRadius: '50%'
-      }
-    }
-  })), core.jsx("div", {
+    type: "text",
+    defaultValue: color.hex,
+    onChange: function onChange(e) {
+      return changeHex(e.target.value);
+    },
+    onKeyUp: handleHexKeyUp //disabled={disabled}
+
+  }), core.jsx("div", null, "Hex")), core.jsx("div", {
+    className: "hexRGB",
+    css: styles.input
+  }, core.jsx(InputNumber, {
+    min: 0,
+    max: 255,
+    value: r,
+    onChange: function onChange(r) {
+      return changeRGB(r, g, b);
+    },
+    disabled: disabled
+  }), core.jsx("div", null, "R")), core.jsx("div", {
+    className: "hexRGB",
+    css: styles.input
+  }, core.jsx(InputNumber, {
+    min: 0,
+    max: 255,
+    value: g,
+    onChange: function onChange(g) {
+      return changeRGB(r, g, b);
+    },
+    disabled: disabled
+  }), core.jsx("div", null, "G")), core.jsx("div", {
+    className: "hexRGB",
+    css: styles.input
+  }, core.jsx(InputNumber, {
+    min: 0,
+    max: 255,
+    value: b,
+    onChange: function onChange(b) {
+      return changeRGB(r, g, b);
+    },
+    disabled: disabled
+  }), core.jsx("div", null, "B")), core.jsx("div", {
+    className: "hexRGB alpha",
+    css: styles.input
+  }, core.jsx(InputNumber, {
+    min: 0,
+    max: 100,
+    value: a,
+    onChange: function onChange(a) {
+      return changeAlpha(a);
+    },
+    disabled: disabled
+  }))), core.jsx("div", {
     className: "ColorSliderCont",
-    css: _ref3
+    css: _ref2
   }, core.jsx("div", {
     className: "ColorSlider",
-    css: _ref4
+    css: _ref3
   }, core.jsx(InputSlider, {
     axis: "x",
     x: h,
     xmax: 359,
     className: "ColorSliderSelect",
-    onChange: function onChange(_ref5) {
-      var x = _ref5.x;
+    onChange: function onChange(_ref4) {
+      var x = _ref4.x;
       return changeHSV(x, s, v);
     },
     disabled: disabled,
@@ -268,8 +297,8 @@ var ColorPicker = function ColorPicker(_ref) {
         backgroundColor: '#eee'
       }
     },
-    onChange: function onChange(_ref6) {
-      var x = _ref6.x;
+    onChange: function onChange(_ref5) {
+      var x = _ref5.x;
       return changeAlpha(x);
     },
     disabled: disabled
@@ -280,70 +309,44 @@ var ColorPicker = function ColorPicker(_ref) {
       width: 30,
       height: 30
     }
-  })), core.jsx("div", {
-    className: "hexRGBCont",
-    css: styles.inputs
-  }, core.jsx("div", {
-    className: "hexRGB",
-    css: styles.input
-  }, core.jsx("input", {
-    id: hexId,
+  }))), core.jsx("div", {
+    css: styles.selector,
+    className: "ColorSquare",
     style: {
-      width: 70,
-      textAlign: 'left'
+      backgroundColor: hueBackground
+    }
+  }, core.jsx("div", {
+    css: styles.gradientWhite
+  }), core.jsx("div", {
+    css: styles.gradientDark
+  }), core.jsx(InputSlider, {
+    className: "SquareSlider",
+    axis: "xy",
+    x: s,
+    xmax: 100,
+    y: 100 - v,
+    ymax: 100,
+    onChange: function onChange(_ref6) {
+      var x = _ref6.x,
+          y = _ref6.y;
+      return changeHSV(h, x, 100 - y);
     },
-    type: "text",
-    value: color.hex,
-    onChange: function onChange(e) {
-      return changeHex(e.target.value);
-    },
-    onKeyUp: handleHexKeyUp //disabled={disabled}
-
-  }), core.jsx("div", null, "Hex")), core.jsx("div", {
-    className: "hexRGB",
-    css: styles.input
-  }, core.jsx(InputNumber, {
-    min: 0,
-    max: 255,
-    value: r,
-    onChange: function onChange(r) {
-      return changeRGB(r, g, b);
-    },
-    disabled: disabled
-  }), core.jsx("div", null, "R")), core.jsx("div", {
-    className: "hexRGB",
-    css: styles.input
-  }, core.jsx(InputNumber, {
-    min: 0,
-    max: 255,
-    value: g,
-    onChange: function onChange(g) {
-      return changeRGB(r, g, b);
-    },
-    disabled: disabled
-  }), core.jsx("div", null, "G")), core.jsx("div", {
-    className: "hexRGB",
-    css: styles.input
-  }, core.jsx(InputNumber, {
-    min: 0,
-    max: 255,
-    value: b,
-    onChange: function onChange(b) {
-      return changeRGB(r, g, b);
-    },
-    disabled: disabled
-  }), core.jsx("div", null, "B")), core.jsx("div", {
-    className: "hexRGB",
-    css: styles.input
-  }, core.jsx(InputNumber, {
-    min: 0,
-    max: 100,
-    value: a,
-    onChange: function onChange(a) {
-      return changeAlpha(a);
-    },
-    disabled: disabled
-  }), core.jsx("div", null, "A"))));
+    disabled: disabled,
+    styles: {
+      track: {
+        width: '100%',
+        height: '100%',
+        background: 'none'
+      },
+      thumb: {
+        width: 12,
+        height: 12,
+        backgroundColor: 'rgba(0,0,0,0)',
+        border: '2px solid #fff',
+        borderRadius: '50%'
+      }
+    }
+  })));
 };
 
 ColorPicker.defaultProps = {
@@ -392,9 +395,6 @@ var styles = {
     input: {
       width: 30,
       textAlign: 'center'
-    },
-    div: {
-      marginTop: 4
     }
   }
 };
@@ -403,7 +403,7 @@ var _ref = {
   name: "7n089j",
   styles: "position:relative;display:none;box-sizing:border-box;width:49px;height:24px;padding:4px;background-color:#ffffff;border:1px solid #bebebe;border-radius:3px;user-select:none;"
 };
-var _ref2 = {
+var _ref2$1 = {
   name: "trkpwz",
   styles: "display:block;width:100%;height:100%;cursor:pointer;"
 };
@@ -442,7 +442,7 @@ var InputColor = function InputColor(_ref3) {
   }, core.jsx("span", _extends({}, props, {
     css: _ref
   }), core.jsx("span", {
-    css: _ref2,
+    css: _ref2$1,
     style: {
       backgroundColor: color.rgba
     }
