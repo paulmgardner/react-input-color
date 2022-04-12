@@ -113,7 +113,7 @@ const ColorPicker = ({ hexId, color, onChange, disabled }) => {
             />
             <div>G</div>
           </div>
-          <div className="hexRGB" css={styles.input}>
+          <div className="hexRGB blue" css={styles.input}>
             <InputNumber
               min={0}
               max={255}
