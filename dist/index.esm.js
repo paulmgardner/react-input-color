@@ -215,7 +215,7 @@ var ColorPicker = function ColorPicker(_ref) {
     },
     disabled: disabled
   }), jsx("div", null, "G")), jsx("div", {
-    className: "hexRGB",
+    className: "hexRGB blue",
     css: styles.input
   }, jsx(InputNumber, {
     min: 0,

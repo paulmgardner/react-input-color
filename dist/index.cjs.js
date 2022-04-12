@@ -221,7 +221,7 @@ var ColorPicker = function ColorPicker(_ref) {
     },
     disabled: disabled
   }), core.jsx("div", null, "G")), core.jsx("div", {
-    className: "hexRGB",
+    className: "hexRGB blue",
     css: styles.input
   }, core.jsx(InputNumber, {
     min: 0,
